@@ -13,26 +13,21 @@ public class LoginTest {
 
     @BeforeMethod
     public void setup() {
-    	System.setProperty("webdriver.chrome.driver", "C:\\Users\\HP\\Downloads\\chromedriver-win64\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\HP\\Downloads\\chromedriver-win64\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://www.saucedemo.com/");
     }
 
     @Test
-    @Parameters({ "username", "password" })
+    @Parameters({"username", "password"})
     public void loginTest(String username, String password) {
-        WebElement userField = driver.findElement(By.id("user-name"));
-        WebElement passField = driver.findElement(By.id("password"));
-        WebElement loginBtn = driver.findElement(By.id("login-button"));
-
-        userField.sendKeys(username);
-        passField.sendKeys(password);
-        loginBtn.click();
+        driver.findElement(By.id("user-name")).sendKeys(username);
+        driver.findElement(By.id("password")).sendKeys(password);
+        driver.findElement(By.id("login-button")).click();
 
         // Verify successful login
-        String expectedUrl = "https://www.saucedemo.com/inventory.html";
-        Assert.assertEquals(driver.getCurrentUrl(), expectedUrl, "Login failed!");
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/inventory.html", "Login failed!");
     }
 
     @AfterMethod
